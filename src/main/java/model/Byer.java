@@ -125,7 +125,7 @@ public class Byer {
 		 
 	}
 
-	public String updatebuyerservice(String ID,String FullName, String PhoneNumber, String Email, String Address,String Birthdate) {
+	public String updatebuyerservice(String ID, String FullName, String PhoneNumber, String Email, String Address, String Birthdate) {
 	 
 	 String output = "";
 	 try{
@@ -135,7 +135,8 @@ public class Byer {
 		 }
 	 
 	// create a prepared statement
-	 String query = "UPDATE buyerservice SET FullName=?,PhoneNumber=?,Email=?,Address=?,Birthdate=?  WHERE ID=?";
+	 String query = "UPDATE `buyerservice` SET `FullName`=?,`PhoneNumber`?,`Email`=?,`Address`=?,`Birthdate`=? WHERE ID=?";
+	 // String query = "UPDATE buyerservice SET FullName=?,PhoneNumber=?,Email=?,Address=?,Birthdate=?  WHERE ID=?";
 			 		
 		PreparedStatement preparedStmt = con.prepareStatement(query);
 	 

@@ -56,7 +56,7 @@ public class Byer_service {
 	
 	
 	
-	
+	//update
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -64,14 +64,14 @@ public class Byer_service {
 	public String updatebuyerservice(String itemData)
 	{
 	// Convert the input string to a JSON object
-	 JsonObject buy = new JsonParser().parse(itemData).getAsJsonObject();
+	 JsonObject buy1 = new JsonParser().parse(itemData).getAsJsonObject();
 	 //Read the values from the JSON object
-	 String ID = buy.get("ID").getAsString();
-	 String FullName = buy.get("FullName").getAsString();
-	 String PhoneNumber = buy.get("PhoneNumber").getAsString();
-	 String Email = buy.get("Email").getAsString();
-	 String Address = buy.get("Address").getAsString();
-	 String Birthdate = buy.get("Birthdate").getAsString();
+	 String ID = buy1.get("ID").getAsString();
+	 String FullName = buy1.get("FullName").getAsString();
+	 String PhoneNumber = buy1.get("PhoneNumber").getAsString();
+	 String Email = buy1.get("Email").getAsString();
+	 String Address = buy1.get("Address").getAsString();
+	 String Birthdate = buy1.get("Birthdate").getAsString();
 	 String output = buy.updatebuyerservice(ID, FullName, PhoneNumber, Email, Address , Birthdate);
 	return output;
 	}
