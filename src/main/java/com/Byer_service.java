@@ -32,11 +32,16 @@ public class Byer_service {
 	 {
 	 return buy.readItems();
 	 }
+	
+	
+	
+	@POST
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	
 	public String insertItem(@FormParam("FullName") String FullName,
-			 @FormParam("PhoneNumber") int PhoneNumber,
+			 @FormParam("PhoneNumber")String PhoneNumber,
 			 @FormParam("Email") String Email,
 			 @FormParam("Address") String Address,
 			 @FormParam("Birthdate") String Birthdate)
@@ -58,16 +63,16 @@ public class Byer_service {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String updatebuyerservice(String itemData)
 	{
-	//Convert the input string to a JSON object
+	// Convert the input string to a JSON object
 	 JsonObject buy = new JsonParser().parse(itemData).getAsJsonObject();
-	//Read the values from the JSON object
+	 //Read the values from the JSON object
 	 String ID = buy.get("ID").getAsString();
 	 String FullName = buy.get("FullName").getAsString();
 	 String PhoneNumber = buy.get("PhoneNumber").getAsString();
 	 String Email = buy.get("Email").getAsString();
 	 String Address = buy.get("Address").getAsString();
 	 String Birthdate = buy.get("Birthdate").getAsString();
-	 String output = buy.updatebuyerservice(ID, FullName, PhoneNumber, Email,Address ,Birthdate);
+	 String output = buy.updatebuyerservice(ID, FullName, PhoneNumber, Email, Address , Birthdate);
 	return output;
 	}
 
@@ -82,8 +87,8 @@ public class Byer_service {
 	//Convert the input string to an XML document
 	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
 
-	//Read the value from the element <itemID>
-	 String itemID = doc.select("ID").text();
+	//Read the value from the element
+	 String ID = doc.select("ID").text();
 	 String output = buy.deletebuyerservice(ID);
 	return output;
 	}

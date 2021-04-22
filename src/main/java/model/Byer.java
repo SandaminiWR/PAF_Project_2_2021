@@ -5,7 +5,7 @@ import java.sql.*;
 public class Byer {
 	
 	//A common method to connect to the DB
-	private Connection connect() {
+	public Connection connect() {
 		
 		Connection con = null;
 		
@@ -13,7 +13,8 @@ public class Byer {
 		 Class.forName("com.mysql.jdbc.Driver");
 		 
 		//Provide the correct details: DBServer/DBName, username, password
-		 con = DriverManager.getConnection("jdbc:mysql://localhost/paf","root","");
+		 
+		con= DriverManager.getConnection("jdbc:mysql://localhost:3306/paf", "root", "");
 		  
 			
 		}
@@ -24,7 +25,7 @@ public class Byer {
 		return con;
 
 }
-	public String insertbuyerservice(String FullName, int PhoneNumber, String Email, String Address,String Birthdate)
+	public String insertbuyerservice(String FullName, String PhoneNumber, String Email, String Address, String Birthdate)
 	 {
 		String output = "";
 		 try{
@@ -34,7 +35,8 @@ public class Byer {
 			 return "Error while connecting to the database for inserting."; 
 		 }
 		// create a prepared statement
-		 String query = " insert into buyerservice('ID','FullName','PhoneNumber','Email','Address','Birthdate')"+ " values (?, ?, ?, ?, ?,?)";
+		 String query = " INSERT INTO `buyerservice`(`ID`, `FullName`, `PhoneNumber`, `Email`, `Address`, `Birthdate`) VALUES (?,?,?,?,?,?)";
+		 
 		 
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
@@ -42,7 +44,7 @@ public class Byer {
 		 
 		 preparedStmt.setInt(1, 0);
 		 preparedStmt.setString(2, FullName);
-		 preparedStmt.setInt(3, PhoneNumber);
+		 preparedStmt.setString(3, PhoneNumber);
 		 preparedStmt.setString(4, Email);
 		 preparedStmt.setString(5, Address); 
 		 preparedStmt.setString(6, Birthdate);
@@ -75,7 +77,9 @@ public class Byer {
 	 		+ "<th>PhoneNumber</th>"
 	 		+ "<th>Email</th>"
 	 		+ "<th>Address</th>"
-	 		+ "<th>Birthdate</th></tr>";
+	 		+ "<th>Birthdate</th>"
+	 		+" <th>Update</th>"
+	 		+ "<th>Delete</th></tr>";
 	 
 	 String query = "select * from buyerservice";
 	 Statement stmt = con.createStatement();
@@ -137,7 +141,7 @@ public class Byer {
 	 
 	// binding values
 	 preparedStmt.setString(1, FullName);
-	 preparedStmt.setInt(2, Integer.parseInt(PhoneNumber));
+	 preparedStmt.setString(2, PhoneNumber);
 	 preparedStmt.setString(3, Email);
 	 preparedStmt.setString(4, Address);
 	 preparedStmt.setString(5, Birthdate);
@@ -170,7 +174,7 @@ public class Byer {
 			}
 		
 		// create a prepared statement
-		 String query = "delete from items where ID=?";
+		 String query = "delete from buyerservice where ID=?";
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
