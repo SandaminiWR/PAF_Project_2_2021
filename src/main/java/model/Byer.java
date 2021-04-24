@@ -12,7 +12,7 @@ public class Byer {
 		try{
 		 Class.forName("com.mysql.jdbc.Driver");
 		 
-		//Provide the correct details: DBServer/DBName, username, password
+		//Provide the correct details: DBServer/DBName
 		 
 		con= DriverManager.getConnection("jdbc:mysql://localhost:3306/paf", "root", "");
 		  
@@ -25,6 +25,7 @@ public class Byer {
 		return con;
 
 }
+	//insert
 	public String insertbuyerservice(String FullName, String PhoneNumber, String Email, String Address, String Birthdate)
 	 {
 		String output = "";
@@ -125,6 +126,7 @@ public class Byer {
 		 
 	}
 
+	//update
 	public String updatebuyerservice(String ID, String FullName, String PhoneNumber, String Email, String Address, String Birthdate) 
 	{
 	 
@@ -165,6 +167,8 @@ public class Byer {
 	 
 	return output;
 	}
+	
+	//delete
 	public String deletebuyerservice(String ID){
 
 	String output = "";

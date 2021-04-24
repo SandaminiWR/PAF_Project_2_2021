@@ -34,7 +34,7 @@ public class Byer_service {
 	 }
 	
 	
-	
+	//insert
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
