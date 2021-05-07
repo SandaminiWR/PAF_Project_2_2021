@@ -6,36 +6,45 @@
     
      
  <%
+//Save------------------------
   
 if (request.getParameter("name") != null) 
-	{ 
+{ 
 
-	 session.setAttribute("name", request.getParameter("name")); 
-	 session.setAttribute("phone", request.getParameter("phone")); 
-	 session.setAttribute("address", request.getParameter("address"));
-	 session.setAttribute("mail", request.getParameter("mail")); 
-	 session.setAttribute("password", request.getParameter("password")); 
-	 session.setAttribute("confirmpassword", request.getParameter("confirmpassword"));
- 
 			 User user = new User(); 
-				 String stsMsg = user.insertUser(request.getParameter("name"), 
+ 		     String stsMsg = ""; 
+ 		     
+ 		     //Insert----------------------
+ 		      if (request.getParameter("hidUserIDSave") != "") 
+  			  { 
+    
+				 stsMsg = user.insertUser(request.getParameter("name"), 
 				 					request.getParameter("phone"), 
 					 				request.getParameter("address"), 
 				 					request.getParameter("mail"), 
 				 					request.getParameter("password"), 
 					 				request.getParameter("confirmpassword")); 
  
- 			session.setAttribute("statusMsg", stsMsg); 
- 
-	} 
-
-
-    
- if (request.getParameter("uid") != null) 
+				} 
+ 		      else//Update--------------------
+ 		      {
+ 				 stsMsg = user.updateUser(request.getParameter("hidUserIDSave"), 
+ 					    	request.getParameter("name"),	
+ 						    request.getParameter("phone"), 
+			 				request.getParameter("address"), 
+		 					request.getParameter("mail"), 
+		 					request.getParameter("password"), 
+			 				request.getParameter("confirmpassword")); 
+			  }
+ 		     
+ 	 			session.setAttribute("statusMsg", stsMsg); 
+}
+ //Delete------------------
+ if (request.getParameter("hidUserIDDelete") != null) 
     { 
     
     User usr = new User(); 
-    String stsMsg = usr.deleteUser(request.getParameter("uid")); 
+    String stsMsg = usr.deleteUser(request.getParameter("hidUserIDDelete")); 
     session.setAttribute("statusMsg", stsMsg); 
     } 
   
@@ -52,7 +61,7 @@ if (request.getParameter("name") != null)
 
 <link rel="stylesheet" href="Views/bootstrap.min.css">
 <script src="Components/jquery-3.2.1.min.js"></script>
-<script src="Components/main.js"></script>
+<script src="Components/user.js"></script>
 
 </head>
 <body>
@@ -62,62 +71,40 @@ if (request.getParameter("name") != null)
  <div class="col-8"> 	
 	
 <h1 class="m-3">User Management</h1>
-	<form method="post" action="user.jsp" id="formStudent">
+	<form id="formUser" name= "formUser" method="post" action="user.jsp">
 	
-					 <!-- ID -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">ID: </span>
-			</div> 
-			<input name="id" type="hidden" id="txtName">
-			</div><br>
-					 <!-- name -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">Name: </span>
-			</div> 
-			<input name="name" type="text" id="txtName">
-			</div><br>
-						 <!-- phone -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">Phone: </span>
-			</div> 
-			<input name="phone" type="tel" id="txtName">
-			</div><br>
-						 <!-- address -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">Address: </span>
-			</div> 
-			<input name="address" type="text" id="txtName">
-			</div><br>
-						 <!-- mail -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">Mail: </span>
-			</div> 
-			<input name="mail" type="email" id="txtName">
-			</div><br>
-						<!-- pass -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName">Password: </span>
-			</div> 
-            <input name="password" type="password" id="txtName">	
-            </div><br>
-						<!-- c pass -->
-			<div class="input-group input-group-sm mb-3">
-			<div class="input-group-prepend">
-			 <span class="input-group-text" id="lblName"> Confirm Password: </span>
-			</div> 
-			<input name="confirmpassword" type="password" id="txtName">
-			</div><br>
-			
-		
-			
-		<input name="btnSubmit" type="submit" value="Save" id="btnSave" class="btn btn-primary">
- 
+User ID : 
+<input id="id" name="id" type="hidden" 
+ class="form-control form-control-sm">
+<br> 
+Name : 
+<input id="name" name="name" type="text" 
+ class="form-control form-control-sm">
+<br>
+ Phone: 
+<input id="phone" name="phone" type="tel" 
+ class="form-control form-control-sm">
+<br> 
+Address : 
+<input id="address" name="address" type="text" 
+ class="form-control form-control-sm">
+<br>
+Email : 
+<input id="mail" name="mail" type="email" 
+ class="form-control form-control-sm">
+<br>
+Password : 
+<input id="password" name="password" type="password" 
+ class="form-control form-control-sm">
+<br>
+confirm Password: 
+<input id="confirmpassword" name="confirmpassword" type="password" 
+ class="form-control form-control-sm">
+<br>
+<input id="btnSave" name="btnSave" type="button" value="Save" 
+ class="btn btn-primary">
+<input type="hidden" id="hidUserIDSave" name="hidUserIDSave" value="">
+
 	</form>
 	
 	</div>

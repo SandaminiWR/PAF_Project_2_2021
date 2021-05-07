@@ -92,21 +92,21 @@ public class User {
 					 String password = rs.getString(6);
 					 
 					// Add into the html table
-					output += "<tr><td>" + UserID + "</td>"; 
-					output += "<td>" + userName + "</td>"; 
+					output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + UserID + "'>"+ userName + "</td>"; 
 					output += "<td>" + phone + "</td>"; 
 					output += "<td>" + address + "</td>"; 
 					output += "<td>" + email + "</td>"; 
 					output += "<td>" + password + "</td>"; 
 					
 					// buttons
-					output += "<td><input name='btnUpdate' type='button' value='Update'></td>"
+					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+
 							
 							
 					 + "<td><form method='post' action='user.jsp'>"
 							
-					 + "<input name='btnRemove' type='submit' value='Remove'>"
-					 + "<input name='uid' type='hidden' value='" + UserID + "'>" 
+					 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger>"
+					 + "<input name='hidUserIDDelete' type='hidden' value='" + UserID + "'>" 
 					 + "</form></td></tr>";  
 					 
 					 
