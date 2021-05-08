@@ -2,8 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-    
-    
+      
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,30 +25,50 @@
 	<br><br>
 
 
+<form id="formItem" name="formItem" method="post" action="item.jsp">
+
+ 		Item code: 
+ 		<input id="itemCode" name="itemCode" type="text" 
+					 class="form-control form-control-sm">
+					 
+ 		<br> Item category: 
+ 		<input id="itemCategory" name="itemCategory" type="text" 
+ 					class="form-control form-control-sm">
+ 					
+ 		 <br> Item name: 
+ 		<input id="itemName" name="itemName" type="text" 
+ 					class="form-control form-control-sm">
+ 					
+  		<br> Item brand: 
+ 		<input id="itemBrand" name="itemBrand" type="text" 
+ 					class="form-control form-control-sm">
+ 					
+ 		<br> Item description: 
+ 		<input id="itemDesc" name="itemDesc" type="text" 
+ 					class="form-control form-control-sm">
+ 					
+ 		<br> Item price: 
+		 <input id="itemPrice" name="itemPrice" type="text" 
+ 					class="form-control form-control-sm">	
+ 					
+ 		<br>
+ 		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
+ 		<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+</form>
 
 
+<div id="alertSuccess" class="alert alert-success"></div>
+<div id="alertError" class="alert alert-danger"></div>
 
-
-
-<div class="alert alert-success">
- <% out.print(session.getAttribute("statusMsg"));%>
-</div>
-
-
-
-<%
- out.print(session.getAttribute("statusMsg")); 
-%>
 <br>
-
-<%
- Item itemObj = new Item(); 
- out.print(itemObj.readItems()); 
-%>
-
+<div id="divItemsGrid">
+ <%
+ 	Item itemObj = new Item(); 
+ 	out.print(itemObj.readItems()); 
+ %>
 </div>
- </div>
-</div>
+
+</div> </div> </div> 
 
 
 </body>
