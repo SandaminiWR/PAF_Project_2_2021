@@ -72,7 +72,7 @@ public class User {
 				
 				// Prepare the html table to be displayed
 				output = "<table border='1'>" 
-				+ "<tr><th>User ID</th><th>Name</th><th>Phone</th><th>Address</th>"
+				+ "<tr><th>ID</th><th>Name</th><th>Phone</th><th>Address</th>"
 				+ "<th>Email</th><th>Password</th><th>Update</th><th>Remove</th></tr>";
 
 				
@@ -92,7 +92,8 @@ public class User {
 					 String password = rs.getString(6);
 					 
 					// Add into the html table
-					output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + UserID + "'>"+ userName + "</td>"; 
+					output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + UserID + "'>"+ UserID + "</td>"; 
+					output += "<td>" + userName + "</td>"; 
 					output += "<td>" + phone + "</td>"; 
 					output += "<td>" + address + "</td>"; 
 					output += "<td>" + email + "</td>"; 
@@ -121,6 +122,8 @@ public class User {
 					 + "<input name='uid' type='hidden' value='" + UserID + "'>" 
 					 + "</form></td></tr>"; */
 				}
+				
+				output += "</table>"; 
 				
 		 }catch (Exception e) 
 		 { 

@@ -6,18 +6,17 @@
     
      
  <%
-//Save------------------------
-  
 if (request.getParameter("name") != null) 
 { 
-
+	
 			 User user = new User(); 
- 		     String stsMsg = ""; 
- 		     
+ 		     String stsMsg = "";
+ 		    
+ 		   
  		     //Insert----------------------
- 		      if (request.getParameter("hidUserIDSave") != "") 
+ 		      if (request.getParameter("hidUserIDSave") == "") 
   			  { 
-    
+ 		    	 
 				 stsMsg = user.insertUser(request.getParameter("name"), 
 				 					request.getParameter("phone"), 
 					 				request.getParameter("address"), 
@@ -28,6 +27,8 @@ if (request.getParameter("name") != null)
 				} 
  		      else//Update--------------------
  		      {
+ 		    	  
+ 		    	 
  				 stsMsg = user.updateUser(request.getParameter("hidUserIDSave"), 
  					    	request.getParameter("name"),	
  						    request.getParameter("phone"), 
@@ -35,9 +36,11 @@ if (request.getParameter("name") != null)
 		 					request.getParameter("mail"), 
 		 					request.getParameter("password"), 
 			 				request.getParameter("confirmpassword")); 
+ 				 System.out.println(stsMsg);
 			  }
  		     
  	 			session.setAttribute("statusMsg", stsMsg); 
+ 	 			
 }
  //Delete------------------
  if (request.getParameter("hidUserIDDelete") != null) 
@@ -73,10 +76,7 @@ if (request.getParameter("name") != null)
 <h1 class="m-3">User Management</h1>
 	<form id="formUser" name= "formUser" method="post" action="user.jsp">
 	
-User ID : 
-<input id="id" name="id" type="hidden" 
- class="form-control form-control-sm">
-<br> 
+ 
 Name : 
 <input id="name" name="name" type="text" 
  class="form-control form-control-sm">
@@ -101,7 +101,7 @@ confirm Password:
 <input id="confirmpassword" name="confirmpassword" type="password" 
  class="form-control form-control-sm">
 <br>
-<input id="btnSave" name="btnSave" type="button" value="Save" 
+<input id="btnSave" name="btnSave" type="submit" value="Save" 
  class="btn btn-primary">
 <input type="hidden" id="hidUserIDSave" name="hidUserIDSave" value="">
 
@@ -124,6 +124,25 @@ confirm Password:
  
     <%
         if ("Insert Successfull".equals(session.getAttribute("statusMsg"))) {
+    %>
+        <div class="alert alert-success" id="alertSuccess">
+        <% out.print(session.getAttribute("statusMsg")); %>	</div>
+    <%
+        } 
+        else {
+    %>
+        <div id="alertError" class="alert alert-danger">
+		<% out.print(session.getAttribute("statusMsg")); %>	</div>
+    <%
+        }
+    %>
+    
+    <!-- 
+    
+     -->
+     
+      <%
+        if ("Updated successfully".equals(session.getAttribute("statusMsg"))) {
     %>
         <div class="alert alert-success" id="alertSuccess">
         <% out.print(session.getAttribute("statusMsg")); %>	</div>
