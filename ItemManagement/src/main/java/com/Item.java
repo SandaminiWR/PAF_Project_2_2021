@@ -104,22 +104,30 @@ public class Item {
 				
 				
 			
-			//Insert Items
-			public String insertItem(String code, String category, String name, String brand, String desc, String price) {
-				Connection con = connect();
-				String output = "";
-				if (con == null) {
-					
-					return "Error while connecting to the database";
-				}
-
+			 //Insert Items
+			public String insertItem(String code, String category, String name, String brand, String desc, String price) 
+			
+			{
 				
-				// create a prepared statement
-				String query = " insert into item (`itemID`,`itemCode`,`itemCategory`,`itemName`,`itemBrand`,`itemDesc`,`itemPrice`)" + " values (?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement preparedStmt;
-				try {
+				String output = "";
+				
+				try 
+				{
+					Connection con = connect();
+				
+					if (con == null)
+					{
+						return "Error while connecting to the database";
+					}
+				
+					
+			       // create a prepared statement
+					String query = " insert into item (`itemID`,`itemCode`,`itemCategory`,`itemName`,`itemBrand`,`itemDesc`,`itemPrice`)" + " values (?, ?, ?, ?, ?, ?, ?)";
+					PreparedStatement preparedStmt;
+				
 					preparedStmt = con.prepareStatement(query);
 
+					// binding values
 					preparedStmt.setInt(1, 0);
 					preparedStmt.setString(2, code);
 					preparedStmt.setString(3, category);
@@ -128,20 +136,24 @@ public class Item {
 					preparedStmt.setString(6, desc);
 					preparedStmt.setDouble(7, Double.parseDouble(price));
 					
+					// execute the statement
 					preparedStmt.execute();
 					con.close();
-					output = "Inserted Successfully";
-					
-					
-				} catch (SQLException e) {
-					
-					output = "Error while inserting";
-					System.err.println(e.getMessage());
-				}
+					 
+					 
+					String newItems = readItems(); 
+				    output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+				    
+				 } 
+				 catch (Exception e) 
+				 { 
+					 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}"; 
+					 System.err.println(e.getMessage()); 
+				 } 
 				
-
-				return output;
+					 return output;  
 			}
+			
 			
 			
 			
