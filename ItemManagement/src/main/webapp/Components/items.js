@@ -8,7 +8,7 @@
 	}); 
 
 
-// SAVE button click handler(Request Algorithm)-----------------------------------------------------------------------
+// SAVE Button handler(Request Algorithm)-----------------------------------------------------------------------
 
 	$(document).on("click", "#btnSave", function(event) 
 	{ 
@@ -85,4 +85,18 @@
 	    $("#formItem")[0].reset();
  
    }
+
+
+// UPDATE Button handler======================================================================================
+
+		$(document).on("click", ".btnUpdate", function(event) 
+	    { 
+ 				$("#hidItemIDSave").val($(this).closest("tr").find('#hidItemIDUpdate').val());
+ 				$("#itemCode").val($(this).closest("tr").find('td:eq(0)').text()); 
+				$("#itemCategory").val($(this).closest("tr").find('td:eq(1)').text()); 
+ 				$("#itemName").val($(this).closest("tr").find('td:eq(2)').text()); 
+ 				$("#itemBrand").val($(this).closest("tr").find('td:eq(3)').text()); 
+ 				$("#itemDesc").val($(this).closest("tr").find('td:eq(4)').text()); 
+ 				$("#itemPrice").val($(this).closest("tr").find('td:eq(5)').text()); 
+	   }); 
 
