@@ -102,7 +102,8 @@ public class Item {
 			 
 		 } 		
 				
-				
+			
+			
 			
 			 //Insert Items
 			public String insertItem(String code, String category, String name, String brand, String desc, String price) 
@@ -210,41 +211,46 @@ public class Item {
 			 }
 			
 				
-					
-				//Delete Items
-				public String deleteItem(String itemID)
-				{ 
-				 String output = ""; 
+			
+			
+			//Delete Items
+			public String deleteItem(String itemID)
+			{ 
+				String output = ""; 
+				
 				try
-				 { 
-				 Connection con = connect(); 
-				 if (con == null) 
-				 { 
-				 return "Error while connecting to the database for deleting."; 
-				 } 
+				{ 
+					Connection con = connect(); 
+					if (con == null) 
+					{
+						
+						return "Error while connecting to the database for deleting."; 
+					} 
+			 
+					// create a prepared statement
+					String query = "delete from item where itemID=?"; 
+					
+					PreparedStatement preparedStmt = con.prepareStatement(query); 
+			 
+					// binding values
+					preparedStmt.setInt(1, Integer.parseInt(itemID)); 
+			
+					// execute the statement
+					preparedStmt.execute(); 
+					con.close(); 
 				 
-				 // create a prepared statement
-				 String query = "delete from item where itemID=?"; 
-				 PreparedStatement preparedStmt = con.prepareStatement(query); 
-				 
-				 // binding values
-				 preparedStmt.setInt(1, Integer.parseInt(itemID)); 
-				 
-				 // execute the statement
-				 preparedStmt.execute(); 
-				 con.close(); 
-				 output = "Deleted Successfully"; 	 
-				 } 
-				
-				catch (Exception e) {
-				 	
-				 output = "Error while deleting the item."; 
-				 System.err.println(e.getMessage()); 
-				 
-				 } 
-				
-				return output; 
-				
-			}
+					String newItems = readItems(); 
+					output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+			  		
+			   } 
+			   catch (Exception e) 
+			   { 
+				   output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}"; 
+				   System.err.println(e.getMessage()); 
+			   } 
+			
+			   return output; 
+			 
+		   }
 	
 }
