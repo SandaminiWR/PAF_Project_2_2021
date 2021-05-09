@@ -1,11 +1,14 @@
 
 // Hide the alerts on page load-------------------------------------------------------------------	
+
 	$(document).ready(function()
 	 { 
  
 		 $("#alertSuccess").hide(); 
 		 $("#alertError").hide(); 
 	}); 
+
+
 
 
 // SAVE Button handler(Request Algorithm)-----------------------------------------------------------------------
@@ -29,7 +32,7 @@
 	    } 
  
  
-        // If valid----------------------------------------------------------------------------------
+        // If valid---------------------------------------------------------------------------------------------
  		var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
  		
 		 $.ajax( 
@@ -48,7 +51,8 @@
 
 
 	    
-	    //Save Button View (Response Algorithm)-----------------------------------------------------------------------------
+//Save Button View (Response Algorithm)-----------------------------------------------------------------------------
+
 		function onItemSaveComplete(response, status)
 		{ 
  
@@ -87,6 +91,8 @@
    }
 
 
+
+
 // UPDATE Button handler======================================================================================
 
 		$(document).on("click", ".btnUpdate", function(event) 
@@ -100,3 +106,63 @@
  				$("#itemPrice").val($(this).closest("tr").find('td:eq(5)').text()); 
 	   }); 
 
+
+
+
+
+// REMOVE Button handler(Request Algorithm)=======================================================================================
+
+		$(document).on("click", ".btnRemove", function(event)
+		{ 
+			 $.ajax( 
+ 		 	{ 
+				 url : "ItemsAPI", 
+				 type : "DELETE", 
+		   		 data : "itemID=" + $(this).data("itemid"),
+ 		 		 dataType : "text", 
+			 	complete : function(response, status) 
+		 	{
+		  		onItemDeleteComplete(response.responseText, status); 
+ 			
+ 	    	}
+ 	  
+ 		}); 
+ 
+	});
+	
+	
+	
+	
+//Remove Button View (Response Algorithm)-----------------------------------------------------------------------------
+
+		function onItemDeleteComplete(response, status)
+		{ 
+			if (status == "success") 
+	    	{ 
+		 		var resultSet = JSON.parse(response); 
+		 		
+ 				if (resultSet.status.trim() == "success") 
+ 				{ 
+		 			 $("#alertSuccess").text("Successfully deleted."); 
+	 		 		 $("#alertSuccess").show(); 
+ 					 $("#divItemsGrid").html(resultSet.data); 
+ 	
+	  			} else if (resultSet.status.trim() == "error") 
+ 	 		    { 
+ 					$("#alertError").text(resultSet.data); 
+ 					$("#alertError").show(); 
+ 	 		    } 
+ 		
+	 	   } else if (status == "error") 
+ 	  	   { 
+ 	  
+ 				$("#alertError").text("Error while deleting."); 
+ 				$("#alertError").show(); 
+ 	  	   } else
+	  	   { 
+ 				$("#alertError").text("Unknown error while deleting.."); 
+ 				$("#alertError").show(); 
+ 	   	   }
+ 	  
+	}
+	
