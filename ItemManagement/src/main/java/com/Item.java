@@ -157,44 +157,58 @@ public class Item {
 			
 			
 			
-				//Update Items
-				public String updateItem(String ID, String code, String category, String name, String brand, String desc, String price)
-				 { 
-				 String output = ""; 
-				 try
-				 { 
-				 Connection con = connect(); 
-				 if (con == null) 
-				 {return "Error while connecting to the database for updating."; } 
-				 
-				 // create a prepared statement
-				 String query = "UPDATE item SET itemCode=?,itemCategory=?,itemName=?,itemBrand=?,itemDesc=?,itemPrice=? WHERE itemID=?"; 
-				 PreparedStatement preparedStmt = con.prepareStatement(query);
-				 
-				 // binding values
-				 preparedStmt.setString(1, code); 
-				 preparedStmt.setString(2, category); 
-				 preparedStmt.setString(3, name); 
-				 preparedStmt.setString(4, brand); 
-				 preparedStmt.setString(5, desc); 
-				 preparedStmt.setDouble(6, Double.parseDouble(price));  
-				 preparedStmt.setInt(7, Integer.parseInt(ID)); 
-				 
-				 // execute the statement
-				 preparedStmt.execute(); 
-				 con.close(); 
-				 output = "Updated Successfully"; 
-				 } 
-				 catch (Exception e) {
-				 		 
-				 output = "Error while updating the item."; 
-				 System.err.println(e.getMessage()); 
-				 
-				 } 
-				 
-				 return output; 
-			 } 
+			//Update Items
+			public String updateItem(String ID, String code, String category, String name, String brand, String desc, String price)
+			{ 
 				
+				String output = ""; 
+				
+				try
+				{ 
+					Connection con = connect(); 
+					
+					if (con == null) 
+					{
+						
+						return "Error while connecting to the database for updating."; 
+						
+					} 
+			 
+					
+					// create a prepared statement
+					String query = "UPDATE item SET itemCode=?,itemCategory=?,itemName=?,itemBrand=?,itemDesc=?,itemPrice=? WHERE itemID=?"; 
+				 
+					PreparedStatement preparedStmt = con.prepareStatement(query);
+			 
+					// binding values
+					preparedStmt.setString(1, code); 
+					preparedStmt.setString(2, category); 
+					preparedStmt.setString(3, name); 
+					preparedStmt.setString(4, brand); 
+					preparedStmt.setString(5, desc); 
+					preparedStmt.setDouble(6, Double.parseDouble(price));  
+					preparedStmt.setInt(7, Integer.parseInt(ID)); 
+					
+			 
+					// execute the statement
+				    preparedStmt.execute(); 
+				    con.close(); 
+					 
+				    
+				    String newItems = readItems(); 
+				    output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+				    
+			 	 } 
+				 catch (Exception e) 
+				 { 
+						 output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}"; 
+						 System.err.println(e.getMessage()); 
+				 } 
+			 
+				 return output;
+				 
+			 }
+			
 				
 					
 				//Delete Items
