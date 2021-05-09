@@ -1,5 +1,5 @@
 
-// Hide the alerts on page load-------------------------------------------------------------------	
+// Hide the alerts on page load--------------------------------------------------------------------------------------	
 
 	$(document).ready(function()
 	 { 
@@ -11,7 +11,7 @@
 
 
 
-// SAVE Button handler(Request Algorithm)-----------------------------------------------------------------------
+// SAVE Button handler(Request Algorithm)===================================================================================
 
 	$(document).on("click", "#btnSave", function(event) 
 	{ 
@@ -32,7 +32,7 @@
 	    } 
  
  
-        // If valid---------------------------------------------------------------------------------------------
+        // If valid----------------------------------------------------------
  		var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
  		
 		 $.ajax( 
@@ -42,16 +42,15 @@
                  data : $("#formItem").serialize(), 
                  dataType : "text", 
                  complete : function(response, status) 
- 				{
- 				 
-					 onItemSaveComplete(response.responseText, status); 
- 				} 
+ 				 {
+ 				 	onItemSaveComplete(response.responseText, status); 
+ 				 } 
  		}); 
   }); 
 
 
 	    
-//Save Button View (Response Algorithm)-----------------------------------------------------------------------------
+//Save Button View (Response Algorithm)--------------------------------------------------------------------------------------
 
 		function onItemSaveComplete(response, status)
 		{ 
@@ -93,7 +92,7 @@
 
 
 
-// UPDATE Button handler======================================================================================
+// UPDATE Button handler========================================================================================================
 
 		$(document).on("click", ".btnUpdate", function(event) 
 	    { 
@@ -121,10 +120,10 @@
 		   		 data : "itemID=" + $(this).data("itemid"),
  		 		 dataType : "text", 
 			 	complete : function(response, status) 
-		 	{
-		  		onItemDeleteComplete(response.responseText, status); 
+		 		{
+		  			onItemDeleteComplete(response.responseText, status); 
  			
- 	    	}
+ 	    		}
  	  
  		}); 
  
@@ -165,4 +164,65 @@
  	   	   }
  	  
 	}
+	
+
+	
+	
+	
+// CLIENT-MODEL(form data validation)===================================================================================
+
+		function validateItemForm() 
+		{ 
+		
+		// CODE
+		if ($("#itemCode").val().trim() == "") 
+ 		{ 
+ 			return "Insert Item Code."; 
+ 		} 
+ 		
+		// Category
+		if ($("#itemCategory").val().trim() == "") 
+ 		{ 
+ 			return "Insert Item Category."; 
+	    } 
+	    
+		// NAME
+		if ($("#itemName").val().trim() == "") 
+ 		{ 
+ 			return "Insert Item Name."; 
+ 		} 
+ 		
+		// Brand
+		if ($("#itemBrand").val().trim() == "") 
+ 		{ 
+ 			return "Insert Item Brand."; 
+ 		}
+ 		 
+		// DESCRIPTION------------------------
+		if ($("#itemDesc").val().trim() == "") 
+ 		{ 
+ 			return "Insert Item Description."; 
+ 		}
+ 		 
+		// PRICE-------------------------------
+		if ($("#itemPrice").val().trim() == "") 
+		 { 
+			 return "Insert Item Price."; 
+		 }
+		  
+		// is numerical value
+		var tmpPrice = $("#itemPrice").val().trim(); 
+		if (!$.isNumeric(tmpPrice)) 
+ 		{ 
+ 			 return "Insert a numerical value for Item Price."; 
+ 		}
+ 		 
+		// convert to decimal price
+		 $("#itemPrice").val(parseFloat(tmpPrice).toFixed(2)); 
+ 
+		return true; 
+
+}
+	
+	
 	
