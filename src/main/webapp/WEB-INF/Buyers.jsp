@@ -51,10 +51,14 @@
 <script src="components/Buyers.js"></script>
 </head>
 <body>
+<div class="jumbotron jumbotron-fluid">
 <div class="container">
 <div class="row">
-	<div class="col-8">
+<div class="col-8">
+	
 	<h1>Buyer Manager</h1>
+	<p>
+	</p>
 	
 	
 
@@ -86,20 +90,19 @@
 
 	</form>
 
-	<div id="alertSuccess" class=alert alert-success>
-	<%
-		out.print(session.getAttribute("statusMsg"));
-	%>
-	</div>
+	<div id="alertSuccess" class=alert alert-success></div>
 	
-	<div id="alertError" class = alert alert-danger>
+	<div id="alertError" class = alert alert-danger></div>
 	<br>
+	
+	<div id="divBuyersGrid">
 	<%
 	Byer itemObj = new Byer();
 	out.print(itemObj.readbuyerservice());
 	%>
-
 	</div>
+</div>
+</div>
 </div>
 </div>
 
