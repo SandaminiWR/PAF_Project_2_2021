@@ -1,4 +1,4 @@
-package model;
+package com;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,55 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class User {
-	
-	public String insertUser(String name, String phone, String address, String mail,String password,String confirmpassword) 
-	{
-		
-		String output="";
-		
-		try {
-			
-			Connection con = DBConnection.getConnection();
-			
-			if (con == null) 
-			{ 
-				return "Error while connecting to the database"; 
-			}
-		
-		// create a prepared statement
-		String query = " insert into user (`id`,`name`,`phone`,`address`,`email`,`password`)"
-		 + " values (?, ?, ?, ?, ?,?)"; 
-		PreparedStatement preparedStmt = con.prepareStatement(query); 
-		// binding values
-		
-		if(password.equals(confirmpassword)) {
-			
-			preparedStmt.setInt(1, 0); 
-			preparedStmt.setString(2, name); 
-			preparedStmt.setString(3, phone); 
-			preparedStmt.setString(4,address); 
-			preparedStmt.setString(5, mail);
-			preparedStmt.setString(6,password); 
-			System.out.print(name);
-			
-			//execute the statement
-			preparedStmt.execute(); 
-			//con.close();
-			
-			output = "Insert Successfull"; 
-		}else {
-			output = "Password not matched";
-		}
-		
-		} 
-		catch (Exception e) 
-		{ 
-			output = "Error while inserting"; 
-			System.err.println(e.getMessage()); 
-		} 
-		return output; 
-	}
-	
 	
 	public String readUser()
 	{ 
@@ -92,7 +43,7 @@ public class User {
 					 String password = rs.getString(6);
 					 
 					// Add into the html table
-					output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + UserID + "'>"+ UserID + "</td>"; 
+				    output += "<tr><td><input id='hidUserIDUpdate' name='hidUserIDUpdate' type='hidden' value='" + UserID + "'>"+ UserID + "</td>"; 
 					output += "<td>" + userName + "</td>"; 
 					output += "<td>" + phone + "</td>"; 
 					output += "<td>" + address + "</td>"; 
@@ -100,27 +51,11 @@ public class User {
 					output += "<td>" + password + "</td>"; 
 					
 					// buttons
-					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
-
-							
-							
-					 + "<td><form method='post' action='user.jsp'>"
-							
-					 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger>"
-					 + "<input name='hidUserIDDelete' type='hidden' value='" + UserID + "'>" 
-					 + "</form></td></tr>";  
+					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'  data-id='" + UserID + "'></td>"
+									
+					 + "<td><input name='btnRemove' type='button' value='Remove' class='btn btn-danger data-id='" + UserID + "'></td></tr>";  
 					 
 					 
-					// buttons
-					/*output +=
-							
-							
-					  "<td><form method='post' action='user.jsp'>"
-					+	 "<input name='btnUpdate' type='button' value='Update'>"	
-					+ "<input name='uid' type='hidden' value='" + UserID + "'>"		  
-					 + "<input name='btnRemove' type='submit' value='Remove'>"
-					 + "<input name='uid' type='hidden' value='" + UserID + "'>" 
-					 + "</form></td></tr>"; */
 				}
 				
 				output += "</table>"; 
@@ -136,6 +71,63 @@ public class User {
 		 return output; 
 	}
 	
+	
+		
+		public String insertUser(String name, String phone, String address, String mail,String password,String confirmpassword) 
+		{
+			
+			String output="";
+			
+			try {
+				
+				Connection con = DBConnection.getConnection();
+				
+				if (con == null) 
+				{ 
+					return "Error while connecting to the database"; 
+				}
+			
+			// create a prepared statement
+			String query = " insert into user (`id`,`name`,`phone`,`address`,`email`,`password`)"
+			 + " values (?, ?, ?, ?, ?,?)"; 
+			PreparedStatement preparedStmt = con.prepareStatement(query); 
+			// binding values
+			
+			if(password.equals(confirmpassword)) {
+				
+				preparedStmt.setInt(1, 0); 
+				preparedStmt.setString(2, name); 
+				preparedStmt.setString(3, phone); 
+				preparedStmt.setString(4,address); 
+				preparedStmt.setString(5, mail);
+				preparedStmt.setString(6,password); 
+				System.out.print(name);
+				
+				//execute the statement
+				preparedStmt.execute(); 
+				//con.close();
+				
+				output = "Insert Successfull"; 
+			}else {
+				output = "Password not matched";
+			}
+			
+			
+			
+			String newItems = readUser(); 
+			 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
+			
+			}
+			 catch (Exception e) 
+			{ 
+				 output = "{\"status\":\"error\", \"data\": \"Error while inserting the User.\"}"; 
+				 System.err.println(e.getMessage()); 
+				 } 
+			return output; 
+		}
+		
+		
+
 	public String updateUser(String ID,String name, String phone, String address, String mail,String password,String confirmpassword) 
 
 	 {
@@ -167,12 +159,14 @@ public class User {
 		 }else {
 			 output = "Password not matched";
 		 }
-			
+		 String newItems = readUser(); 
+		 output = "{\"status\":\"success\", \"data\": \"" + 
+		 newItems + "\"}"; 
 		 }
 		 catch (Exception e)
 		 {
-			 output = "Error while updating the user.";
-			 System.err.println(e.getMessage());
+			 output = "{\"status\":\"error\", \"data\": \"Error while Updating the User.\"}"; 
+					 System.err.println(e.getMessage()); 
 		 }
 		 return output;
 		 }
@@ -200,11 +194,13 @@ public class User {
 			//con.close(); 
 			output = "Deleted successfully";
 
-		} 
+			String newItems = readUser(); 
+			 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+			 } 
 		catch (Exception e) 
 		{ 
-		output = "Error while deleting the user."; 
-		 System.err.println(e.getMessage()); 
+			output = "{\"status\":\"error\", \"data\": \"Error while Deleting the User.\"}"; 
+					 System.err.println(e.getMessage());
 		}
 	
 	 return output; 
@@ -265,8 +261,8 @@ public class User {
 				
 		 }catch (Exception e) 
 		 { 
-				output = "Error while retriving Data"; 
-				System.err.println(e.getMessage()); 
+			 output = "{\"status\":\"error\", \"data\": \"Error while updating the item.\"}"; 
+					 System.err.println(e.getMessage());
 		 } 
 		 
 		 

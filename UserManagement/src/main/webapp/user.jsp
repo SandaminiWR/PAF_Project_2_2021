@@ -1,58 +1,7 @@
-
-<%@page import="model.User"%>
-<%@page import="model.DBConnection"%>
+<%@page import="com.User"%>
+<%@page import="com.DBConnection"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-     
- <%
-if (request.getParameter("name") != null) 
-{ 
-	
-			 User user = new User(); 
- 		     String stsMsg = "";
- 		    
- 		   
- 		     //Insert----------------------
- 		      if (request.getParameter("hidUserIDSave") == "") 
-  			  { 
- 		    	 
-				 stsMsg = user.insertUser(request.getParameter("name"), 
-				 					request.getParameter("phone"), 
-					 				request.getParameter("address"), 
-				 					request.getParameter("mail"), 
-				 					request.getParameter("password"), 
-					 				request.getParameter("confirmpassword")); 
- 
-				} 
- 		      else//Update--------------------
- 		      {
- 		    	  
- 		    	 
- 				 stsMsg = user.updateUser(request.getParameter("hidUserIDSave"), 
- 					    	request.getParameter("name"),	
- 						    request.getParameter("phone"), 
-			 				request.getParameter("address"), 
-		 					request.getParameter("mail"), 
-		 					request.getParameter("password"), 
-			 				request.getParameter("confirmpassword")); 
- 				 System.out.println(stsMsg);
-			  }
- 		     
- 	 			session.setAttribute("statusMsg", stsMsg); 
- 	 			
-}
- //Delete------------------
- if (request.getParameter("hidUserIDDelete") != null) 
-    { 
-    
-    User usr = new User(); 
-    String stsMsg = usr.deleteUser(request.getParameter("hidUserIDDelete")); 
-    session.setAttribute("statusMsg", stsMsg); 
-    } 
-  
-
-%>
 
 <!DOCTYPE html>
 <html>
@@ -74,8 +23,7 @@ if (request.getParameter("name") != null)
  <div class="col-8"> 	
 	
 <h1 class="m-3">User Management</h1>
-	<form id="formUser" name= "formUser" method="post" action="user.jsp">
-	
+	<form id="formUser" name= "formUser" >	
  
 Name : 
 <input id="name" name="name" type="text" 
@@ -137,9 +85,7 @@ confirm Password:
         }
     %>
     
-    <!-- 
-    update msg
-     -->
+   
      
       <%
         if ("Updated successfully".equals(session.getAttribute("statusMsg"))) {
@@ -164,39 +110,7 @@ confirm Password:
 		 out.print(userObj.readUser()); 
 	%>
 
-<br>
-	<!--  <table border="1">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Phone</th>
-			<th>Address</th>
-			<th>Mail</th>
-			<th>Password</th>
-			<th>Update</th>
-			<th>Remove</th>
-	
-		</tr>
-	
-		<tr>
-			<td><%out.print(session.getAttribute("id")); %></td>
-			<td><%out.print(session.getAttribute("name")); %></td>
-			<td><%out.print(session.getAttribute("phone")); %></td>
-			<td><%out.print(session.getAttribute("address")); %></td>
-			<td><%out.print(session.getAttribute("mail")); %></td>
-			<td><%out.print(session.getAttribute("password")); %></td>
-			<td><%out.print(session.getAttribute("confirmpassword")); %></td>
-		
-		
-			
-			<td><input name="btnUpdate" type="button" value="Update"></td> 
-			<td><input name="btnRemove" type="button" value="Remove"></td>
-		</tr>
-		
-		
-	</table>
-	
--->	
+
 
 </body>
 </html>

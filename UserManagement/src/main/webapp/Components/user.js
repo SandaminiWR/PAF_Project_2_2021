@@ -1,6 +1,3 @@
-/**
- * 
- */
 
 $(document).ready(function()
 { 
@@ -28,21 +25,109 @@ if (status != true)
  return; 
  } 
 // If valid-------------------------
- $("#formUser").submit() ; 
+var type = ($("#hidUserIDSave").val() == "") ? "POST" : "PUT";
+ 
+ $.ajax( 
+ { 
+		
+ 	 url : "UsersAPI", 
+	 type : type, 
+ 	 data : $("#formUser").serialize(), 
+	 dataType : "text", 
+  	 complete : function(response, status) 
+	 { 
+ 		onUserSaveComplete(response.responseText, status); 
+	 } 
+ 	}); 
 });
+
+function onUserSaveComplete(response, status)
+{ 
+	if (status == "success") 
+ 	{ 
+ 		var resultSet = JSON.parse(response); 
+	
+		 if (resultSet.status.trim() == "success") 
+		 { 
+			 $("#alertSuccess").text("Successfully saved."); 
+			 $("#alertSuccess").show(); 
+ 
+			$("#divItemsGrid").html(resultSet.data); 
+ 		
+		} else if (resultSet.status.trim() == "error") 
+ 		{ 
+ 			$("#alertError").text(resultSet.data); 
+		    $("#alertError").show(); 
+ 		} 
+	
+	 } else if (status == "error") 
+ 		{ 
+ 			$("#alertError").text("Error while saving."); 
+ 			$("#alertError").show(); 
+	 } else
+		 { 
+ 			$("#alertError").text("Unknown error while saving.."); 
+		    $("#alertError").show(); 
+ 		} 
+		    $("#hidUserIDSave").val(""); 
+ 			$("#formUser")[0].reset(); 
+};
 
 // UPDATE==========================================
+
 $(document).on("click", ".btnUpdate", function(event) 
 { 
- $("#hidUserIDSave").val($(this).closest("tr").find('#hidUserIDUpdate').val()); 
- $("#name").val($(this).closest("tr").find('td:eq(1)').text()); 
- $("#phone").val($(this).closest("tr").find('td:eq(2)').text()); 
- $("#address").val($(this).closest("tr").find('td:eq(3)').text()); 
- $("#mail").val($(this).closest("tr").find('td:eq(4)').text()); 
- $("#password").val($(this).closest("tr").find('td:eq(5)').text()); 
- $("#confirmpassword").val($(this).closest("tr").find('td:eq(6)').text()); 
+	 $("#hidUserIDSave").val($(this).data("id")); 
+	 $("#name").val($(this).closest("tr").find('td:eq(1)').text()); 
+	 $("#phone").val($(this).closest("tr").find('td:eq(2)').text()); 
+	 $("#address").val($(this).closest("tr").find('td:eq(3)').text()); 
+	 $("#mail").val($(this).closest("tr").find('td:eq(4)').text()); 
+	 $("#password").val($(this).closest("tr").find('td:eq(5)').text()); 
+	 $("#confirmpassword").val($(this).closest("tr").find('td:eq(6)').text()); 
 });
 
+// DELETE==========================================
+
+$(document).on("click", ".btnRemove", function(event)
+{ 
+ $.ajax( 
+ { 
+ url : "UsersAPI", 
+ type : "DELETE", 
+ data : "id=" + $(this).data("id"),
+ dataType : "text", 
+ complete : function(response, status) 
+ { 
+ onItemDeleteComplete(response.responseText, status); 
+ } 
+ }); 
+});
+
+function onItemDeleteComplete(response, status)
+{ 
+	if (status == "success") 
+	 { 
+		 var resultSet = JSON.parse(response); 
+		 if (resultSet.status.trim() == "success") 
+	 { 
+		 $("#alertSuccess").text("Successfully deleted."); 
+		 $("#alertSuccess").show(); 
+		 $("#divItemsGrid").html(resultSet.data); 
+	 } else if (resultSet.status.trim() == "error") 
+	 { 
+		 $("#alertError").text(resultSet.data); 
+		 $("#alertError").show(); 
+	 } 
+	 } else if (status == "error") 
+	 { 
+		 $("#alertError").text("Error while deleting."); 
+		 $("#alertError").show(); 
+	 } else
+	 { 
+		 $("#alertError").text("Unknown error while deleting.."); 
+		 $("#alertError").show(); 
+	 } 
+}
 // CLIENT-MODEL================================================================
 function validateUserForm() 
 { 
