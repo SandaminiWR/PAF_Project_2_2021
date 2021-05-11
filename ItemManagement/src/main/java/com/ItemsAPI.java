@@ -27,12 +27,14 @@ public class ItemsAPI extends HttpServlet {
     }
 
     
+    
 	// Read Operation
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		//Not Used
 	}
 
+	
 	
 	
 	// Insert Operation
@@ -53,19 +55,34 @@ public class ItemsAPI extends HttpServlet {
 	
 	
 	
+	// Update Operation
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
 		
-		
-		
+        Map paras = getParasMap(request); 
+       	
+		 String output = itemObj.updateItem(paras.get("hidItemIDSave").toString(), 
+		                     paras.get("itemCode").toString(), 
+		                     paras.get("itemCategory").toString(), 
+		                     paras.get("itemName").toString(), 
+		                     paras.get("itemBrand").toString(), 
+		                     paras.get("itemDesc").toString(), 
+		                     paras.get("itemPrice").toString()); 
+		 
+		response.getWriter().write(output);
 	}
+		
+		
+	
 
 	
 	
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+	
+		
 	}
 	
 	
