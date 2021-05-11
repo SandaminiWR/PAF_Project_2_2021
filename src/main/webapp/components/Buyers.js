@@ -34,7 +34,7 @@ $(document).on("click", "#btnSave", function(event){
  		
 		 $.ajax( 
 	     { 
-				 url : "BuyersAPI", 
+				 url : "BuyerAPI", 
  				 type : type, 
                  data : $("#buyerdetails").serialize(), 
                  dataType : "text", 
@@ -106,7 +106,7 @@ function onItemSaveComplete(response, status){
  		 	{ 
 				 url : "BuyerAPI", 
 				 type : "DELETE", 
-		   		 data : "itemID=" + $(this).data("id"),
+		   		 data : "ID=" + $(this).data("id"),
  		 		 dataType : "text", 
 			 	complete : function(response, status) 
 		 		{
@@ -122,7 +122,8 @@ function onItemSaveComplete(response, status){
 	
 	//Remove Button View (Response Algorithm)-----------------------------------------------------------------------------
 
-		function onItemDeleteComplete(response, status){ 
+		function onItemDeleteComplete(response, status){
+		 
 			if (status == "success"){ 
 		 		var resultSet = JSON.parse(response); 
 		 		

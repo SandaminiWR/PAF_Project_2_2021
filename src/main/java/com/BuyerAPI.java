@@ -40,13 +40,13 @@ public class BuyerAPI extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+    	
+    	
+    	//NOT USE 
+    	
 	}
-	
-	
-	
-	
-	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,6 +60,7 @@ public class BuyerAPI extends HttpServlet {
 	 			request.getParameter("Email"),
 	 			request.getParameter("Address"),
 	 			request.getParameter("Birthdate"));
+		
 	 			response.getWriter().write(output);
 	 			
 		
@@ -71,31 +72,31 @@ public class BuyerAPI extends HttpServlet {
  		
  		
 		 Map paras = getParasMap(request);
-		 String output = itemObj.updatebuyerservice(paras.get("hidItemIDSave").toString(),
+		 
+		 String output = itemObj.updatebuyerservice(paras.get("hidbuyerserviceSave").toString(),
 		 paras.get("FullName").toString(),
 		 paras.get("PhoneNumber").toString(),
 		 paras.get("Email").toString(),
 		 paras.get("Address").toString(),
 		 paras.get("Birthdate").toString());
+		 
 		 response.getWriter().write(output);
 		 }
 	
-	 private Map getParasMap(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	 
-	 
-	 private Map getParasMap(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	 
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		
+			 Map paras = getParasMap(request);
+			 
+			 String output = itemObj.deletebuyerservice(paras.get("ID").toString());
+			response.getWriter().write(output);
+			}
 	 
 	 
 
-		private static Map getParasMap(HttpServletRequest request){
-			Map<String, String> map = new HashMap<String, String>();
+	private static Map getParasMap(HttpServletRequest request){
+			
+		Map<String, String> map = new HashMap<String, String>();
 			
 			try{
 							

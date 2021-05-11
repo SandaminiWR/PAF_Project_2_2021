@@ -1,47 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%
+//<%
 	//initialize
-	session.setAttribute("statusMsg","");
-	System.out.println("Trying to process...");
+	//session.setAttribute("statusMsg","");
+	//System.out.println("Trying to process...");
 
 	//Save---------------------------------
-	if (request.getParameter("FullName") != null) 
-	{ 
-	 Byer itemObj = new Byer(); 
-	 String stsMsg = ""; 
+	//if (request.getParameter("FullName") != null) 
+	//{ 
+	// Byer itemObj = new Byer(); 
+	// String stsMsg = ""; 
 	
 	 //Insert--------------------------
-	if (request.getParameter("hidbuyerserviceSave") == "") 
-	 { 
-	 stsMsg = itemObj.insertItem(request.getParameter("FullName"), 
-	 request.getParameter("PhoneNumber"), 
-	 request.getParameter("Email"), 
-	 request.getParameter("Address"),
-	 request.getParameter("Birthdate")); 
-	 } 
-	else
+	//if (request.getParameter("hidbuyerserviceSave") == "") 
+	// { 
+	 //stsMsg = itemObj.insertItem(request.getParameter("FullName"), 
+	// request.getParameter("PhoneNumber"), 
+	 //request.getParameter("Email"), 
+	 //request.getParameter("Address"),
+	 //request.getParameter("Birthdate")); 
+	// } 
+	//else
 		//Update----------------------
-	 { 
-	 stsMsg = itemObj.updateItem(request.getParameter("hidbuyerserviceSave"), 
-	 request.getParameter("FullName"), 
-	 request.getParameter("PhoneNumber"), 
-	 request.getParameter("Email"),
-	 request.getParameter("Address"),
-	 request.getParameter("Birthdate")); 
-	 } 
-	 session.setAttribute("statusMsg", stsMsg); 
-	} 
+	 //{ 
+	 //stsMsg = itemObj.updateItem(request.getParameter("hidbuyerserviceSave"), 
+	// request.getParameter("FullName"), 
+	 //request.getParameter("PhoneNumber"), 
+	// request.getParameter("Email"),
+	// request.getParameter("Address"),
+	// request.getParameter("Birthdate")); 
+	// } 
+	// session.setAttribute("statusMsg", stsMsg); 
+	//} 
 	
 	//Delete-----------------------------
-	if (request.getParameter("hiddeletebuyerservice") != null) 
-	{ 
-	 Byer itemObj = new Byer(); 
-	 String stsMsg = itemObj.deleteItem(request.getParameter("hiddeletebuyerservice")); 
-	 session.setAttribute("statusMsg", stsMsg); 
-	}
-%>
+	//if (request.getParameter("hiddeletebuyerservice") != null) 
+	//{ 
+	// Byer itemObj = new Byer(); 
+	// String stsMsg = itemObj.deleteItem(request.getParameter("hiddeletebuyerservice")); 
+	// session.setAttribute("statusMsg", stsMsg); 
+	//}
+//%>
 
 
 <!DOCTYPE html>
@@ -93,13 +93,7 @@
 
 	</form>
 
-	<div id="alertSuccess" class="alert alert-success">
-		
-		<%
-	
-			out.print(session.getAttribute("statusMsg"));
-		%>
-	</div>
+	<div id="alertSuccess" class="alert alert-success"></div>
 	
 	<div id="alertError" class = alert alert-danger></div>
 	<br>

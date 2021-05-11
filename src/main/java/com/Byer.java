@@ -12,6 +12,7 @@ public class Byer {
 	
 	//A common method to connect to the DB
 public Connection connect(){
+
 			
 		Connection con = null;
 		
@@ -30,7 +31,75 @@ public Connection connect(){
 			return con;
 
 }
-	//insert
+	
+	//read
+public String readbuyerservice(){
+	
+	String output = "";
+	try{
+				 
+		Connection con = connect();
+		if (con == null){
+			return "Error while connecting to the database for reading.";
+		}
+		// Prepare the html table to be displayed
+
+		output = "<table border='1'><tr><th>Full_Name</th>"
+			 + "<th>PhoneNumber</th>"
+			 + "<th>Email</th>"
+			 + "<th>Address</th>"
+			 + "<th>Birthdate</th>"
+			 +" <th>Update</th>"
+			 + "<th>Delete</th></tr>";
+
+		String query = "select * from buyerservice";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+
+			// iterate through the rows in the result set
+		while (rs.next()){
+			String ID = Integer.toString(rs.getInt("ID"));
+			String FullName = rs.getString("FullName");
+			String PhoneNumber = rs.getString("PhoneNumber");
+			String Email = rs.getString("Email");
+			String Address = rs.getString("Address");
+			String Birthdate = rs.getString("Birthdate");
+	 
+	 
+			// Add into the html table
+			output += "<tr><td><input id='hidbuyerserviceupdate' name='hidbuyerserviceupdate' type='hidden' value='" + ID + "'>";
+			output += "<td>" + FullName + "</td>";
+			output += "<td>" + PhoneNumber + "</td>";
+			output += "<td>" + Email + "</td>"; 
+			output += "<td>" + Address + "</td>";
+			output += "<td>" + Birthdate + "</td>";
+	 
+			// buttons
+	 
+			output += "<td><input name='btnUpdate' type='button' value='Update' class='btnupdate btn btn-secondary'></td>"
+					+ "<td><form method='post' action='Buyers.jsp'>"
+					+ "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
+					+ "<input name='hiddeletebuyerservice' type='hidden' value='" + ID + "\"'>" + "</form></td></tr>";
+	
+	
+	
+	
+		}
+		con.close();
+			// Complete the html table
+	 		output += "</table>";
+	 	}
+
+
+		catch (Exception e){
+			output = "Error while reading the Details.";
+			System.err.println(e.getMessage());
+		}
+	return output;
+	 
+}
+
+//insert
 public String insertbuyerservice(String FullName, String PhoneNumber, String Email, String Address, String Birthdate){
 	
 		String output = "";
@@ -74,70 +143,6 @@ public String insertbuyerservice(String FullName, String PhoneNumber, String Ema
 		 
 }
 	
-public String readbuyerservice(){
-	
-		
-		String output = "";
-	 
-	 try{
-				 
-		 Connection con = connect();
-		 if (con == null){
-			 return "Error while connecting to the database for reading.";
-		 }
-		 // Prepare the html table to be displayed
-	 
-		 output = "<table border='1'><tr><th>Full_Name</th>"
-				 + "<th>PhoneNumber</th>"
-				 + "<th>Email</th>"
-				 + "<th>Address</th>"
-				 + "<th>Birthdate</th>"
-				 +" <th>Update</th>"
-				 + "<th>Delete</th></tr>";
-	 
-		 String query = "select * from buyerservice";
-		 Statement stmt = con.createStatement();
-		 ResultSet rs = stmt.executeQuery(query);
-	 
-		 // iterate through the rows in the result set
-		 while (rs.next()){
-			 String ID = Integer.toString(rs.getInt("ID"));
-			 String FullName = rs.getString("FullName");
-			 String PhoneNumber = rs.getString("PhoneNumber");
-			 String Email = rs.getString("Email");
-			 String Address = rs.getString("Address");
-			 String Birthdate = rs.getString("Birthdate");
-	 	 
-	 	 
-	 	// Add into the html table
-	 	output += "<tr><td><input id=\"hidbuyerserviceupdate\" name=\"hidbuyerserviceupdate\" type=\"hidden\" value=\"" + ID + "'>";
-	 	 output += "<td>" + FullName + "</td>";
-	 	 output += "<td>" + PhoneNumber + "</td>";
-	 	 output += "<td>" + Email + "</td>"; 
-	 	 output += "<td>" + Address + "</td>";
-	 	 output += "<td>" + Birthdate + "</td>";
-	 	 
-	 	// buttons
-	 	 
-	 	output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnupdate btn btn-secondary\"></td>"
-	 			 + "<td><form method=\"post\" action=\"Buyers.jsp\">"
-	 			 + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-	 			 + "<input name=\"hiddeletebuyerservice\" type=\"hidden\" value=\"" + ID + "\"'>" + "</form></td></tr>";
-	 	
-	 }
-	 con.close();
-	 // Complete the html table
-	 output += "</table>";
-	 
-	 }
-	
-	catch (Exception e){
-		output = "Error while reading the Details.";
-		System.err.println(e.getMessage());
-	}
-	return output;
-		 
-}
 
 	//update
 public String updatebuyerservice(String ID, String FullName, String PhoneNumber, String Email, String Address, String Birthdate){
