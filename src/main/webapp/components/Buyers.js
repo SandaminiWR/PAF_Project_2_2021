@@ -18,7 +18,7 @@ $(document).on("click", "#btnSave", function(event){
  	 
  	 
  	 // Form validation-------------------
-	var status = validateItemForm(); 
+	var status = buyerdetails(); 
 	if (status != true){ 
  		
  		$("#alertError").text(status); 
@@ -86,9 +86,9 @@ function onItemSaveComplete(response, status){
  	 
  	 // UPDATE==========================================
  	 
-	$(document).on("click", ".btnUpdate", function(event){ 
+	$(document).on("click", ".btnupdate", function(event){ 
 	
-	$("#hidIDSave").var($(this).closest("tr").find('#hidupdatebuyerservice').val()); 
+	$("#hidbuyerserviceSave").var($(this).closest("tr").find('#hidupdatebuyerservice').val()); 
  	$("#FullName").var($(this).closest("tr").find('td:eq(0)').text()); 
 	$("#PhoneNumber").var($(this).closest("tr").find('td:eq(1)').text()); 
 	$("#Email").var($(this).closest("tr").find('td:eq(2)').text()); 
@@ -154,7 +154,7 @@ function onItemSaveComplete(response, status){
  	 
  	 
  	 // CLIENT-MODEL================================================================
- 	 function validateItemForm(){ 
+ 	 function buyerdetails(){ 
 
 	// name
 	if ($("#FullName").var().trim() == ""){ 

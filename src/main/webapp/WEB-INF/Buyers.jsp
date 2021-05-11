@@ -11,8 +11,9 @@
 	{ 
 	 Byer itemObj = new Byer(); 
 	 String stsMsg = ""; 
-	//Insert--------------------------
-	if (request.getParameter("hidItemIDSave") == "") 
+	
+	 //Insert--------------------------
+	if (request.getParameter("hidbuyerserviceSave") == "") 
 	 { 
 	 stsMsg = itemObj.insertItem(request.getParameter("FullName"), 
 	 request.getParameter("PhoneNumber"), 
@@ -20,9 +21,10 @@
 	 request.getParameter("Address"),
 	 request.getParameter("Birthdate")); 
 	 } 
-	else//Update----------------------
+	else
+		//Update----------------------
 	 { 
-	 stsMsg = itemObj.updateItem(request.getParameter("hidItemIDSave"), 
+	 stsMsg = itemObj.updateItem(request.getParameter("hidbuyerserviceSave"), 
 	 request.getParameter("FullName"), 
 	 request.getParameter("PhoneNumber"), 
 	 request.getParameter("Email"),
@@ -31,11 +33,12 @@
 	 } 
 	 session.setAttribute("statusMsg", stsMsg); 
 	} 
+	
 	//Delete-----------------------------
-	if (request.getParameter("hidIDDelete") != null) 
+	if (request.getParameter("hiddeletebuyerservice") != null) 
 	{ 
 	 Byer itemObj = new Byer(); 
-	 String stsMsg = itemObj.deleteItem(request.getParameter("hidItemIDDelete")); 
+	 String stsMsg = itemObj.deleteItem(request.getParameter("hiddeletebuyerservice")); 
 	 session.setAttribute("statusMsg", stsMsg); 
 	}
 %>
@@ -86,7 +89,7 @@
 	<br>
 
 	<input id="btnSave" name="btnSave" type="button" value="Save"class="btn btn-primary">
-	<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
+	<input type="hidden" id="hidbuyerserviceSave" name="hidbuyerserviceSave" value="">
 
 	</form>
 

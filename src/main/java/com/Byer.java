@@ -110,7 +110,7 @@ public String readbuyerservice(){
 	 	 
 	 	 
 	 	// Add into the html table
-	 	output += "<tr><td><input id='hidbuyerserviceupdate'name='hidbuyerserviceupdate' type='hidden' value='" + ID + "'>";
+	 	output += "<tr><td><input id=\"hidbuyerserviceupdate\" name=\"hidbuyerserviceupdate\" type=\"hidden\" value=\"" + ID + "'>";
 	 	 output += "<td>" + FullName + "</td>";
 	 	 output += "<td>" + PhoneNumber + "</td>";
 	 	 output += "<td>" + Email + "</td>"; 
@@ -119,10 +119,10 @@ public String readbuyerservice(){
 	 	 
 	 	// buttons
 	 	 
-	 	output += "<td><input name='btnUpdate' type='button' value='Update'class='btnupdate btn btn-secondary'></td>"
-	 			 + "<td><form method='post' action='Buyers.jsp'>"
-	 			 + "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
-	 			 + "<input name='hiddeletebuyerservice' type='hidden' value='" + ID + "'>" + "</form></td></tr>";
+	 	output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnupdate btn btn-secondary\"></td>"
+	 			 + "<td><form method=\"post\" action=\"Buyers.jsp\">"
+	 			 + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
+	 			 + "<input name=\"hiddeletebuyerservice\" type=\"hidden\" value=\"" + ID + "\"'>" + "</form></td></tr>";
 	 	
 	 }
 	 con.close();
