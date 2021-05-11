@@ -94,9 +94,9 @@ public class BuyerAPI extends HttpServlet {
 	 
 	 
 
-		private static Map getParasMap(HttpServletRequest request)
-		{
+		private static Map getParasMap(HttpServletRequest request){
 			Map<String, String> map = new HashMap<String, String>();
+			
 			try{
 							
 				Scanner scanner = new Scanner(request.getInputStream(), "UTF-8");
