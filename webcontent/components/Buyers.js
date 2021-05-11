@@ -48,7 +48,7 @@ $(document).on("click", "#btnSave", function(event){
 
 //Save Button View (Response Algorithm)--------------------------------------------------------------------------------------
 
-		function onItemSaveComplete(response, status){ 
+function onItemSaveComplete(response, status){ 
  
  			if (status == "success"){ 
  	   		 	var resultSet = JSON.parse(response); 
