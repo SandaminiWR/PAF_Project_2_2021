@@ -60,7 +60,7 @@ public class ItemsAPI extends HttpServlet {
 	{
 		
 		
-        Map paras = getParasMap(request); 
+         Map paras = getParasMap(request); 
        	
 		 String output = itemObj.updateItem(paras.get("hidItemIDSave").toString(), 
 		                     paras.get("itemCode").toString(), 
@@ -70,20 +70,28 @@ public class ItemsAPI extends HttpServlet {
 		                     paras.get("itemDesc").toString(), 
 		                     paras.get("itemPrice").toString()); 
 		 
-		response.getWriter().write(output);
+		 response.getWriter().write(output);
 	}
 		
 		
 	
 
 	
-	
-	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// Delete Operation
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		
+	
+		Map paras = getParasMap(request); 
+		
+	    String output = itemObj.deleteItem(paras.get("itemID").toString()); 
+	
+	    response.getWriter().write(output); 
 	
 		
 	}
+	
+	
 	
 	
 	
