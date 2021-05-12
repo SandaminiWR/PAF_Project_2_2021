@@ -1,11 +1,11 @@
 
-$(document).ready(function(){
-	
-	//if ($("#alertSuccess").text().trim() == "") {
+$(document).ready(function()
+	 { 
+ 
 		 $("#alertSuccess").hide(); 
- 	//} 
- 		 $("#alertError").hide(); 
-});
+		 $("#alertError").hide(); 
+	}); 
+	
 
 // SAVE ============================================
 
@@ -18,7 +18,7 @@ $(document).on("click", "#btnSave", function(event){
  	 
  	 
  	 // Form validation-------------------
-	var status = buyerdetails(); 
+	var status = validateBuyerForm(); 
 	if (status != true){ 
  		
  		$("#alertError").text(status); 
@@ -28,19 +28,19 @@ $(document).on("click", "#btnSave", function(event){
 	 } 
 	
 	// If valid-------------------------
- 		//$("#buyerdetails").submit();
  		
- 		var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
+ 		
+		var type = ($("#hidBuyerIDSave").val() == "") ? "POST" : "PUT"; 
  		
 		 $.ajax( 
 	     { 
 				 url : "BuyerAPI", 
  				 type : type, 
-                 data : $("#buyerdetails").serialize(), 
+                 data : $("#formBuyer").serialize(), 
                  dataType : "text", 
                  complete : function(response, status) 
  				 {
- 				 	onItemSaveComplete(response.responseText, status); 
+ 				 	onBuyerSaveComplete(response.responseText, status); 
  				 } 
  		}); 
   }); 
@@ -48,7 +48,7 @@ $(document).on("click", "#btnSave", function(event){
 
 //Save Button View (Response Algorithm)--------------------------------------------------------------------------------------
 
-function onItemSaveComplete(response, status){ 
+function onBuyerSaveComplete(response, status){ 
  
  			if (status == "success"){ 
  	   		 	var resultSet = JSON.parse(response); 
@@ -77,8 +77,8 @@ function onItemSaveComplete(response, status){
 	 	 		$("#alertError").show(); 
  		} 
  		
-	    $("#hidItemIDSave").String(""); 
-	    $("#formItem")[0].reset();
+	    $("#hidBuyerIDSave").val(""); 
+	    $("#formBuyer")[0].reset();
  
    }
  		 
@@ -88,7 +88,7 @@ function onItemSaveComplete(response, status){
  	 
 	$(document).on("click", ".btnupdate", function(event){ 
 	
-	$("#hidbuyerserviceSave").var($(this).closest("tr").find('#hidupdatebuyerservice').val()); 
+	$("#hidBuyerIDSave").var($(this).closest("tr").find('#hidBuyerIDUpdate').val()); 
  	$("#FullName").var($(this).closest("tr").find('td:eq(0)').text()); 
 	$("#PhoneNumber").var($(this).closest("tr").find('td:eq(1)').text()); 
 	$("#Email").var($(this).closest("tr").find('td:eq(2)').text()); 
@@ -110,7 +110,7 @@ function onItemSaveComplete(response, status){
  		 		 dataType : "text", 
 			 	complete : function(response, status) 
 		 		{
-		  			onItemDeleteComplete(response.responseText, status); 
+		  			onBuyerDeleteComplete(response.responseText, status); 
  			
  	    		}
  	  
@@ -122,18 +122,20 @@ function onItemSaveComplete(response, status){
 	
 	//Remove Button View (Response Algorithm)-----------------------------------------------------------------------------
 
-		function onItemDeleteComplete(response, status){
+		function onBuyerDeleteComplete(response, status){
 		 
-			if (status == "success"){ 
+			if (status == "success")
+			{ 
 		 		var resultSet = JSON.parse(response); 
 		 		
- 				if (resultSet.status.trim() == "success"){ 
+ 				if (resultSet.status.trim() == "success")
+ 				{ 
 		 			 $("#alertSuccess").text("Successfully deleted."); 
 	 		 		 $("#alertSuccess").show(); 
  					 $("#divItemsGrid").html(resultSet.data); 
  	
-	  			} 
-	  			else if (resultSet.status.trim() == "error"){ 
+	  			}else if (resultSet.status.trim() == "error")
+	  			{ 
  					$("#alertError").text(resultSet.data); 
  					$("#alertError").show(); 
  	 		    } 
@@ -155,7 +157,8 @@ function onItemSaveComplete(response, status){
  	 
  	 
  	 // CLIENT-MODEL================================================================
- 	 function buyerdetails(){ 
+ 	 
+ 	 function validateByerForm(){ 
 
 	// name
 	if ($("#FullName").var().trim() == ""){ 

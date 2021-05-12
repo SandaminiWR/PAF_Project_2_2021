@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Byer;
+
 /**
  * Servlet implementation class BuyerAPI
  */
@@ -32,30 +34,25 @@ public class BuyerAPI extends HttpServlet {
     }
 
     
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	
     
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-    	
+		    	
     	
     	//NOT USE 
     	
 	}
 
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
     
-    	// Insert Operation
+    // Insert Operation
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String output = itemObj.insertbuyerservice(request.getParameter("FullName"),
+		String output = itemObj.insertbuyer(request.getParameter("FullName"),
 	 			request.getParameter("PhoneNumber"),
 	 			request.getParameter("Email"),
 	 			request.getParameter("Address"),
@@ -73,7 +70,7 @@ public class BuyerAPI extends HttpServlet {
  		
 		 Map paras = getParasMap(request);
 		 
-		 String output = itemObj.updatebuyerservice(paras.get("hidbuyerserviceSave").toString(),
+		 String output = itemObj.updatebuyer(paras.get("hidBuyerIDSave").toString(),
 		 paras.get("FullName").toString(),
 		 paras.get("PhoneNumber").toString(),
 		 paras.get("Email").toString(),
@@ -88,7 +85,7 @@ public class BuyerAPI extends HttpServlet {
 		
 			 Map paras = getParasMap(request);
 			 
-			 String output = itemObj.deletebuyerservice(paras.get("ID").toString());
+			 String output = itemObj.deletebuyer(paras.get("ID").toString());
 			response.getWriter().write(output);
 			}
 	 
