@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Item;
 
-/**
- * Servlet implementation class ItemsAPI
- */
+
+
+//Servlet implementation class ItemsAPI
+
 @WebServlet("/ItemsAPI")
 public class ItemsAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
