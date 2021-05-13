@@ -1,4 +1,4 @@
-<%@page import="com.Item"%>
+<%@page import="model.Item"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
@@ -21,8 +21,8 @@
 
 <div class="container"><div class="row"><div class="col-10">
  
-	<center><h1 style="font-size:380%;">ITEMS Management</h1></center>
-	<br><br>
+	<center><h1 style="font-size:350%;">ITEMS Management</h1></center>
+	<br><br><br>
 
 
 <form id="formItem" name="formItem" method="post" action="item.jsp">
