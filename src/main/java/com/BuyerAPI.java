@@ -33,16 +33,13 @@ public class BuyerAPI extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    
-
-	
-    
+   
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		    	
     	
-    	//NOT USE 
+    	response.getWriter().append("Served at: ").append(request.getContextPath()); 
     	
 	}
 
@@ -86,7 +83,7 @@ public class BuyerAPI extends HttpServlet {
 			 Map paras = getParasMap(request);
 			 
 			 String output = itemObj.deletebuyer(paras.get("ID").toString());
-			response.getWriter().write(output);
+			 response.getWriter().write(output);
 			}
 	 
 	 

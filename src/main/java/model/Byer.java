@@ -12,7 +12,7 @@ import java.sql.*;
 public class Byer {
 	
 	//A common method to connect to the DB
-public Connection connect(){
+private Connection connect(){
 
 			
 		Connection con = null;
@@ -80,9 +80,8 @@ public String readBuyer(){
 			
 	 
 			// buttons
-			output += "<td><input name='btnUpdate' type='button' value='Update' class='btnupdate btn btn-secondary'></td>"
-				   + "<td><input name='btnRemove' type='submit' value='Remove' class='btnRemove btn btn-danger' data-id='"
-				   + ID + "'>" + "</td></tr>";
+			output += "<td><input name='btnUpdate' type='button' value='Update' class='btnupdate btn btn-secondary'>data-ID='" + ID +"'></td>"
+				   + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-ID='" + ID + "'></td></tr>";
 	
 	
 	
@@ -117,7 +116,7 @@ public String insertbuyer(String FullName, String PhoneNumber, String Email, Str
 			 
 			 
 			 // create a prepared statement
-			 String query = " INSERT INTO `buyerservice`(`ID`, `FullName`, `PhoneNumber`, `Email`, `Address`, `Birthdate`) VALUES (?,?,?,?,?,?)";
+			 String query = " INSERT INTO buyerservice(`ID`, `FullName`, `PhoneNumber`, `Email`, `Address`, `Birthdate`)"+" VALUES (?,?,?,?,?,?)";
 		 
 		 
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -139,7 +138,7 @@ public String insertbuyer(String FullName, String PhoneNumber, String Email, Str
 			 output = "{\"status\":\"success\", \"data\": \"" + newBuyer + "\"}"; 
 		 	 
 		 }catch (Exception e){
-			 //output = "Error while inserting the Details.";
+			 
 			 output = "{\"status\":\"error\", \"data\": \"Error while inserting the Details.\"}";
 			 System.err.println(e.getMessage());
 		  }
@@ -150,7 +149,7 @@ public String insertbuyer(String FullName, String PhoneNumber, String Email, Str
 	
 
 	//update
-	public String updatebuyer(String ID, String FullName, String PhoneNumber, String Email, String Address, String Birthdate){
+public String updatebuyer(String ID, String FullName, String PhoneNumber, String Email, String Address, String Birthdate){
 	 
 	 String output = "";
 	 try{
