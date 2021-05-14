@@ -53,7 +53,7 @@ public class User {
 					// buttons
 					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate  btn btn-secondary'  data-userid='" + UserID + "'></td>"
 									
-					 		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-userid='" + UserID + "'></td></tr>";  
+					 		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-userid='" + UserID + "'>"+"</td></tr>";  
 					 
 					 
 				}
@@ -107,11 +107,12 @@ public class User {
 				preparedStmt.execute(); 
 				//con.close();
 				String newUsers= readUser(); 
-				 output = "{\"status\":\"success\", \"data\": \"" + newUsers + "\"}";
+				 output = "{\"status\":\"success\", \"data\": \"" + 
+				newUsers + "\"}";
 				
 				
-			}else {
-				output = "Password not matched";
+		  }else {
+			output = "Password not matched";
 			}
 					
 			
@@ -126,6 +127,7 @@ public class User {
 		}
 		
 		
+	
 
 	public String updateUser(String ID,String name, String phone, String address, String mail,String password,String confirmpassword) 
 
