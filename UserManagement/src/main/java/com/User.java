@@ -100,6 +100,13 @@ public class User {
 				 return output;
 							
 				}
+			 if(!(mail.contains("@gmail.com"))) {
+					
+				  System.out.print("de");
+				  output = "{\"status\":\"error\", \"data\": \"Email not valid.\"}";
+				  return output;
+							
+				}
 			 else if(phone.length()!=10) {
 				 
 				 output = "{\"status\":\"error\", \"data\": \"Phone no is not Valid.\"}";
@@ -142,8 +149,6 @@ public class User {
 		}
 		
 		
-	
-
 	public String updateUser(String ID,String name, String phone, String address, String mail,String password,String confirmpassword) 
 
 	 {
@@ -157,7 +162,29 @@ public class User {
 		 }
 		 
 		 // create a prepared statement
-		 if(password.equals(confirmpassword)) {
+		 
+		 if(!(password.equals(confirmpassword))) {
+				
+			  System.out.print("de");
+			  output = "{\"status\":\"error\", \"data\": \"Password not match.\"}";
+			 return output;
+						
+			}
+		 if(!(mail.contains("@gmail.com"))) {
+				
+			  System.out.print("de");
+			  output = "{\"status\":\"error\", \"data\": \"Email not valid.\"}";
+			  return output;
+						
+			}
+		 else if(phone.length()!=10) {
+			 
+			 output = "{\"status\":\"error\", \"data\": \"Phone no is not Valid.\"}";
+			 return output;
+			 
+		 }
+		 
+		 else {
 			 
 				 String query = "UPDATE user SET name=?,phone=?,address=?,email=?,password=? WHERE id=?";
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -174,10 +201,7 @@ public class User {
 				 String newUsers = readUser(); 
 				 output = "{\"status\":\"success\", \"data\": \"" + 
 						 newUsers + "\"}"; 
-		 }else {
-			 output = "Password not matched";
 		 }
-		
 		 }
 		 catch (Exception e)
 		 {
@@ -220,7 +244,6 @@ public class User {
 	
 	 return output; 
 	}
-	
 	
 	
 	public String RequestReadUserDetails(String name)
