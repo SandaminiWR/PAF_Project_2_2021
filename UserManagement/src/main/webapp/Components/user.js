@@ -32,7 +32,7 @@ var type = ($("#hidUserIDSave").val() == "") ? "POST" : "PUT";
 		
  	 url : "UsersAPI", 
 	 type : type, 
- 	 data : $("#formUser").serialize(), 
+ 	 data : $("#UsersAPI").serialize(), 
 	 dataType : "text", 
   	 complete : function(response, status) 
 	 { 
@@ -52,7 +52,7 @@ function onUserSaveComplete(response, status)
 			 $("#alertSuccess").text("Successfully saved."); 
 			 $("#alertSuccess").show(); 
  
-			$("#divItemsGrid").html(resultSet.data); 
+			$("#divUsersGrid").html(resultSet.data); 
  		
 		} else if (resultSet.status.trim() == "error") 
  		{ 
@@ -98,12 +98,12 @@ $(document).on("click", ".btnRemove", function(event)
  dataType : "text", 
  complete : function(response, status) 
  { 
- onItemDeleteComplete(response.responseText, status); 
+ onUserDeleteComplete(response.responseText, status); 
  } 
  }); 
 });
 
-function onItemDeleteComplete(response, status)
+function onUserDeleteComplete(response, status)
 { 
 	if (status == "success") 
 	 { 

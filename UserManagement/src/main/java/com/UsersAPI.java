@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map; 
 import java.util.Scanner;
 
-import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/UsersAPI")
 public class UsersAPI extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	User userObj = new User();
 	

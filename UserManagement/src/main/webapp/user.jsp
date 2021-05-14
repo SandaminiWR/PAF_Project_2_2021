@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
 <meta charset="ISO-8859-1">
 <title>User Management</title>
@@ -23,7 +22,7 @@
  <div class="col-8"> 	
 	
 <h1 class="m-3">User Management</h1>
-	<form id="formUser" name= "formUser" >	
+	<form id="formUser" name= "formUser" method="post" action="user.jsp">	
  
 Name : 
 <input id="name" name="name" type="text" 
@@ -55,62 +54,19 @@ confirm Password:
 
 	</form>
 	
-	</div>
- </div>
- 
- <br>
- 
- <div class="row">
- <div class="col-12" id="colStudents">
- 
- </div>
- </div>
-</div>
- 
-	 
-	 <body>
- 
-    <%
-        if ("Insert Successfull".equals(session.getAttribute("statusMsg"))) {
-    %>
-        <div class="alert alert-success" id="alertSuccess">
-        <% out.print(session.getAttribute("statusMsg")); %>	</div>
-    <%
-        } 
-        else {
-    %>
-        <div id="alertError" class="alert alert-danger">
-		<% out.print(session.getAttribute("statusMsg")); %>	</div>
-    <%
-        }
-    %>
-    
-   
-     
-      <%
-        if ("Updated successfully".equals(session.getAttribute("statusMsg"))) {
-    %>
-        <div class="alert alert-success" id="alertSuccess">
-        <% out.print(session.getAttribute("statusMsg")); %>	</div>
-    <%
-        } 
-        else {
-    %>
-        <div id="alertError" class="alert alert-danger">
-		<% out.print(session.getAttribute("statusMsg")); %>	</div>
-    <%
-        }
-    %>
- 
-</body>
-	 
+<div id="alertSuccess" class="alert alert-success"></div>
+<div id="alertError" class="alert alert-danger"></div>
+
 	<br>
+	<div id="divUsersGrid">
 	<%
 		 User userObj = new User(); 
 		 out.print(userObj.readUser()); 
 	%>
-
-
-
+</div>
+</div>
+	</div>
+ </div>
+ 
 </body>
 </html>

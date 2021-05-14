@@ -51,9 +51,9 @@ public class User {
 					output += "<td>" + password + "</td>"; 
 					
 					// buttons
-					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'  data-id='" + UserID + "'></td>"
+					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate  btn btn-secondary'  data-userid='" + UserID + "'></td>"
 									
-					 + "<td><input name='btnRemove' type='button' value='Remove' class='btn btn-danger data-id='" + UserID + "'></td></tr>";  
+					 		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-userid='" + UserID + "'></td></tr>";  
 					 
 					 
 				}
@@ -73,7 +73,7 @@ public class User {
 	
 	
 		
-		public String insertUser(String name, String phone, String address, String mail,String password,String confirmpassword) 
+	public String insertUser(String name, String phone, String address, String mail,String password,String confirmpassword) 
 		{
 			
 			String output="";
@@ -106,16 +106,15 @@ public class User {
 				//execute the statement
 				preparedStmt.execute(); 
 				//con.close();
+				String newUsers= readUser(); 
+				 output = "{\"status\":\"success\", \"data\": \"" + newUsers + "\"}";
 				
-				output = "Insert Successfull"; 
+				
 			}else {
 				output = "Password not matched";
 			}
+					
 			
-			
-			
-			String newItems = readUser(); 
-			 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
 			
 			}
 			 catch (Exception e) 
@@ -155,13 +154,13 @@ public class User {
 				 // execute the statement
 				 preparedStmt.execute();
 				 //con.close();
-				 output = "Updated successfully";
+				 String newUsers = readUser(); 
+				 output = "{\"status\":\"success\", \"data\": \"" + 
+						 newUsers + "\"}"; 
 		 }else {
 			 output = "Password not matched";
 		 }
-		 String newItems = readUser(); 
-		 output = "{\"status\":\"success\", \"data\": \"" + 
-		 newItems + "\"}"; 
+		
 		 }
 		 catch (Exception e)
 		 {
@@ -192,10 +191,9 @@ public class User {
 			// execute the statement
 			preparedStmt.execute(); 
 			//con.close(); 
-			output = "Deleted successfully";
-
-			String newItems = readUser(); 
-			 output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}"; 
+			
+			String newUsers = readUser(); 
+			 output = "{\"status\":\"success\", \"data\": \"" + newUsers + "\"}"; 
 			 } 
 		catch (Exception e) 
 		{ 
