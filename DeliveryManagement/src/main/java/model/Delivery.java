@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -45,11 +46,14 @@ public class Delivery {
 	    	   	// execute the statement
 	    	   	preparedStmt.execute(); 
 	    	   	con.close(); 
-	    	   	output = "Inserted successfully"; 
+	    	   	
+	    	   	String newDelivery = readDelivery();
+	    	   	output = "{\"status\":\"success\",\"data\":\""+
+	    	   	newDelivery + "\"}"; 
 	 } 
 	 catch (Exception e) 
 	       { 
-		 		output = "Error while inserting the delivery."; 
+		 		output = "{\"status\":\"error\",\"data\":\"Error while inserting the delivery. \"}";
 		 		System.err.println(e.getMessage()); 
 	       } 
 	 return output; 
@@ -87,10 +91,12 @@ public class Delivery {
 						output += "<td>" + Ddesc + "</td>"; 
 						// buttons
 						
-						output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-										+ "<td><form method='post' action='delivery.jsp'>"+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-										+ "<input name='DID' type='hidden' value='" + DID 
-										+ "'>" + "</form></td></tr>"; 
+						output += "<td><input name='btnUpdate' type='button' value='Update' "
+								+ "class='btnUpdate btn btn-secondary' data-deliveryid='"+DID+"'></td>"
+								+"<td> <input name='btnRemove' type='button' value='Remove'"
+								+ " class='btnRemove btn btn-danger' data-deliveryid='"+DID+"'></td></tr>";
+										
+										
 	 } 
 	 
 					con.close(); 
@@ -125,13 +131,19 @@ public class Delivery {
 					// execute the statement
 					preparedStmt.execute(); 
 					con.close(); 
-					output = "Updated successfully"; 
-			} 
-			catch (Exception e) 
-			{ 
-					output = "Error while updating the Delivery."; 
-					System.err.println(e.getMessage()); 
-			} 
+					  
+			
+			
+			 	String newDelivery = readDelivery();
+	    	   	output = "{\"status\":\"success\",\"data\":\""+
+	    	   			newDelivery + "\"}"; 
+	 } 
+	 catch (Exception e) 
+	       { 
+		 		output = "{\"status\":\"error\",\"data\":\"Error while Updating the delivery. \"}";
+		 		System.err.println(e.getMessage()); 
+	       } 
+			
 			return output; 
 	 } 
 	public String deleteDelivery(String DID) 
@@ -151,14 +163,15 @@ public class Delivery {
 				preparedStmt.execute(); 
 				con.close(); 
 				
-				output = "Deleted successfully"; 
+			 	String newDelivery = readDelivery();
+	    	   	output = "{\"status\":\"success\",\"data\":\""+
+	    	   	newDelivery + "\"}"; 
 	 } 
 	 catch (Exception e) 
-	 { 
-	 
-		 output = "Error while deleting the delivery."; 
-		 System.err.println(e.getMessage()); 
-	 } 
+	       { 
+		 		output = "{\"status\":\"error\",\"data\":\"Error while deleting the delivery. \"}";
+		 		System.err.println(e.getMessage()); 
+	       } 
 	 return output; 
 	 } 
 
