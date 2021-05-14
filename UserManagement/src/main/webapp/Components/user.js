@@ -151,6 +151,11 @@ if ($("#confirmpassword").val().trim() == "")
  return "Insert  Confirm password."; 
  } 
 
+var tmpphone = $("#phone").val().trim(); 
+if (!$.isNumeric(tmpphone)) 
+ { 
+ return "Phone number is not valid."; 
+ }
 return true; 
 }
 

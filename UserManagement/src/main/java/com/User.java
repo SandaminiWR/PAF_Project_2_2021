@@ -77,6 +77,7 @@ public class User {
 		{
 			
 			String output="";
+			String newUsers= readUser(); 
 			
 			try {
 				
@@ -92,13 +93,29 @@ public class User {
 			 + " values (?, ?, ?, ?, ?,?)"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 			// binding values
-			
-			if(password.equals(confirmpassword)) {
+			 if(!(password.equals(confirmpassword))) {
+				
+				  System.out.print("de");
+				  output = "{\"status\":\"error\", \"data\": \"Password not match.\"}";
+				 return output;
+							
+				}
+			 else if(phone.length()!=10) {
+				 
+				 output = "{\"status\":\"error\", \"data\": \"Phone no is not Valid.\"}";
+				 return output;
+				 
+			 }
+			 
+	
+			 
+			 
+				else {
 				
 				preparedStmt.setInt(1, 0); 
 				preparedStmt.setString(2, name); 
 				preparedStmt.setString(3, phone); 
-				preparedStmt.setString(4,address); 
+				preparedStmt.setString(4, address); 
 				preparedStmt.setString(5, mail);
 				preparedStmt.setString(6,password); 
 				System.out.print(name);
@@ -106,14 +123,12 @@ public class User {
 				//execute the statement
 				preparedStmt.execute(); 
 				//con.close();
-				String newUsers= readUser(); 
+				
 				 output = "{\"status\":\"success\", \"data\": \"" + 
 				newUsers + "\"}";
 				
 				
-		  }else {
-			output = "Password not matched";
-			}
+		  }
 					
 			
 			
